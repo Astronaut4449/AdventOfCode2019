@@ -45,16 +45,18 @@ private fun parseInstruction(text: String) = Instruction(
 private fun parseInput(): List<List<Point>> = File("input/day03.txt")
         .readLines()
         .map { line ->
-            val instructions = line.split(',')
+            val instructions = line
+                    .split(',')
                     .map { parseInstruction(it) }
+
+            val directionVectors = instructions
                     .map { instruction -> List(instruction.timesToRepeat) { instruction.direction } }
                     .flatten()
 
-            val path = instructions
-                    .toMutableList()
-                    .apply {
-                        forEachIndexed { index, direction ->
-                            if (index > 0) this[index] = this[index - 1] + direction
+            val path = directionVectors
+                    .fold(mutableListOf<Point>()) { points, directionVector ->
+                        points.apply {
+                            add(if (isEmpty()) directionVector else last() + directionVector)
                         }
                     }
 
