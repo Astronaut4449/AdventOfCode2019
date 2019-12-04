@@ -4,10 +4,10 @@ import java.io.File
 
 private fun String.sorted() = toCharArray().sorted().joinToString("")
 
-fun isValidPassword1(password: String): Boolean =
+private fun isValidPassword1(password: String): Boolean =
         (password == password.sorted()) && (password.length != password.toSet().size)
 
-fun isValidPassword2(password: String): Boolean =
+private fun isValidPassword2(password: String): Boolean =
         isValidPassword1(password) && password.groupingBy { it }.eachCount().values.contains(2)
 
 
