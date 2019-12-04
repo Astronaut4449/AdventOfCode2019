@@ -11,7 +11,7 @@ private data class Vector(val x: Int, val y: Int) {
 private typealias Point = Vector
 
 fun main() {
-    val (path1: List<Point>, path2: List<Point>) = parseInput()
+    val (path1: List<Point>, path2: List<Point>) = pathsFromInput()
 
     val intersections = path1 intersect path2
     val pointClosestToCenter = intersections.map { abs(it.x) + abs(it.y) }.min()
@@ -42,7 +42,7 @@ private fun parseInstruction(text: String) = Instruction(
         text.substring(1).toInt()
 )
 
-private fun parseInput(): List<List<Point>> = File("input/day03.txt")
+private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
         .readLines()
         .map { line ->
             val instructions = line
