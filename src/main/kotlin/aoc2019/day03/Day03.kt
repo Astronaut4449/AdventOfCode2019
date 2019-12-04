@@ -60,5 +60,5 @@ private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
                         }
                     }
 
-            return@map path
+            path
         }
