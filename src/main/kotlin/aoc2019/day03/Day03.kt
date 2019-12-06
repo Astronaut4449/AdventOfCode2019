@@ -29,7 +29,7 @@ fun main() {
 private class Instruction(val direction: Vector, val timesToRepeat: Int)
 
 private fun parseInstruction(text: String) = Instruction(
-        text.first().let {
+        direction = text.first().let {
             when (it) {
                 'L' -> Vector(-1, 0)
                 'R' -> Vector(1, 0)
@@ -38,7 +38,7 @@ private fun parseInstruction(text: String) = Instruction(
                 else -> throw IllegalArgumentException("Unknown direction: $it")
             }
         },
-        text.substring(1).toInt()
+        timesToRepeat = text.substring(1).toInt()
 )
 
 private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
