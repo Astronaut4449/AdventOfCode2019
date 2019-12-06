@@ -5,7 +5,6 @@ import kotlin.math.abs
 
 private data class Vector(val x: Int, val y: Int) {
     operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
-    operator fun minus(other: Vector) = Vector(x - other.x, y - other.y)
 }
 
 private typealias Point = Vector
@@ -14,7 +13,7 @@ fun main() {
     val (path1: List<Point>, path2: List<Point>) = pathsFromInput()
 
     val intersections = path1 intersect path2
-    val pointClosestToCenter = intersections.minBy { abs(it.x) + abs(it.y) }
+    val pointClosestToCenter = intersections.map { abs(it.x) + abs(it.y) }.min()
 
     println("Part 1: $pointClosestToCenter")
 
@@ -49,13 +48,12 @@ private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
                     .split(',')
                     .map { parseInstruction(it) }
 
-            val directionVectors = instructions
-                    .flatMap { instruction -> List(instruction.timesToRepeat) { instruction.direction } }
-
-            val path = directionVectors
-                    .fold(mutableListOf<Point>()) { points, directionVector ->
-                        points.apply {
-                            add(if (isEmpty()) directionVector else last() + directionVector)
+            var pos = Vector(0, 0)
+            val path = instructions
+                    .flatMap { instruction ->
+                        List(size = instruction.timesToRepeat) {
+                            pos += instruction.direction
+                            pos
                         }
                     }
 
