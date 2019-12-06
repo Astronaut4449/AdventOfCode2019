@@ -2,14 +2,12 @@ package aoc2019.day04
 
 import java.io.File
 
-private fun String.sorted() = toCharArray().sorted().joinToString("")
+private fun String.isSorted() = this == toCharArray().sorted().joinToString("")
+private fun String.hasDuplicate() = length != toSet().size
+private fun String.hasDouble() = groupingBy { it }.eachCount().values.contains(2)
 
-private fun isValidPassword1(password: String): Boolean =
-        (password == password.sorted()) && (password.length != password.toSet().size)
-
-private fun isValidPassword2(password: String): Boolean =
-        isValidPassword1(password) && password.groupingBy { it }.eachCount().values.contains(2)
-
+private fun isValidPassword1(password: String) = password.isSorted() && password.hasDuplicate()
+private fun isValidPassword2(password: String) = password.isSorted() && password.hasDouble()
 
 fun main() {
     val (start, end) = File("input/day04.txt").readText().split("-").map { it.toInt() }
