@@ -44,18 +44,14 @@ private fun parseInstruction(text: String) = Instruction(
 private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
         .readLines()
         .map { line ->
-            val instructions = line
+            var pos = Vector(0, 0)
+            line
                     .split(',')
                     .map { parseInstruction(it) }
-
-            var pos = Vector(0, 0)
-            val path = instructions
                     .flatMap { instruction ->
                         List(size = instruction.timesToRepeat) {
                             pos += instruction.direction
                             pos
                         }
                     }
-
-            path
         }
