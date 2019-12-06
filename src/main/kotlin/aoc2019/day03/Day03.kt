@@ -14,7 +14,7 @@ fun main() {
     val (path1: List<Point>, path2: List<Point>) = pathsFromInput()
 
     val intersections = path1 intersect path2
-    val pointClosestToCenter = intersections.map { abs(it.x) + abs(it.y) }.min()
+    val pointClosestToCenter = intersections.minBy { abs(it.x) + abs(it.y) }
 
     println("Part 1: $pointClosestToCenter")
 
@@ -50,8 +50,7 @@ private fun pathsFromInput(): List<List<Point>> = File("input/day03.txt")
                     .map { parseInstruction(it) }
 
             val directionVectors = instructions
-                    .map { instruction -> List(instruction.timesToRepeat) { instruction.direction } }
-                    .flatten()
+                    .flatMap { instruction -> List(instruction.timesToRepeat) { instruction.direction } }
 
             val path = directionVectors
                     .fold(mutableListOf<Point>()) { points, directionVector ->
