@@ -102,7 +102,7 @@ fun main() {
     for (config in permutations(5).map { config -> config.map { it + 5 } }) {
         val (a, b, c, d, e) = List(5) { IntProcessor() }
 
-        val deque = LinkedList<Int>()
+        val feedback = LinkedList<Int>()
 
         e.input = sequence { yield(config[4]); yieldAll(d.run()) }
         d.input = sequence { yield(config[3]); yieldAll(c.run()) }
@@ -111,13 +111,13 @@ fun main() {
         a.input = sequence {
             yield(config[0])
             yield(0)
-            while (deque.isNotEmpty()) {
-                yield(deque.removeAt(0))
+            while (feedback.isNotEmpty()) {
+                yield(feedback.removeAt(0))
             }
         }
 
         e.run().forEach { output ->
-            deque.add(output)
+            feedback.add(output)
             max2 = max2.coerceAtLeast(output)
         }
     }
