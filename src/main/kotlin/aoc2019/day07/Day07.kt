@@ -51,16 +51,14 @@ class IntProcessor {
     }
 }
 
-fun permutations(size: Int): List<List<Int>> {
-    val permutations = mutableListOf<List<Int>>()
-
-    fun heapPermutation(list: MutableList<Int>, size: Int) {
+fun permutations(size: Int): Sequence<List<Int>> = sequence {
+    fun heapPermutation(list: MutableList<Int>, size: Int): Sequence<List<Int>> = sequence {
         if (size == 1) {
-            permutations.add(list.toList())
+            yield(list.toList())
         }
 
         for (i in 0 until size) {
-            heapPermutation(list, size - 1)
+            yieldAll(heapPermutation(list, size - 1))
 
             if (size % 2 == 1) {
                 val temp = list[0]
@@ -74,8 +72,7 @@ fun permutations(size: Int): List<List<Int>> {
         }
     }
 
-    heapPermutation((0 until size).toMutableList(), size)
-    return permutations
+    yieldAll(heapPermutation((0 until size).toMutableList(), size))
 }
 
 
