@@ -7,9 +7,8 @@ private const val HEIGHT = 6
 private const val TRANSPARENT = 2
 private const val BLACK = 0
 
-val layers = File("input/day08.txt").readText()
-        .chunked(WIDTH * HEIGHT)
-        .map { it.chunked(WIDTH).map { it.toCharArray().map(Char::toString).map(String::toInt) } }
+val layers: List<List<List<Int>>> = File("input/day08.txt").readText()
+        .chunked(1).map(String::toInt).chunked(WIDTH).chunked(HEIGHT)
 
 fun main() {
     val layerFewestZeros = layers
