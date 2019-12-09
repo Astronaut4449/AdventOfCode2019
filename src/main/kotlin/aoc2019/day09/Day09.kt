@@ -7,7 +7,7 @@ private val intCode = File("input/day09.txt").readText().split(",").map(String::
 private class IntProcessor(intCode: List<Long>) {
     lateinit var input: Sequence<Long>
 
-    private val intCodeMap = mutableMapOf<Int, Long>().also { it.putAll(intCode.mapIndexed { i, value -> i to value }) }
+    private val intCodeMap = intCode.mapIndexed { index, value -> index to value }.toMap().toMutableMap()
     private val iterator by lazy { input.iterator() }
 
     fun run() = sequence {
