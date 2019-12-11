@@ -165,12 +165,9 @@ fun main() {
             val yMax = yCoordinates.max()!!
 
             println("Part 2:")
-            for (y in yMax downTo yMin) {
-                for (x in xMin..xMax) {
-                    print(if (Point(x, y) in this) "# " else "  ")
-                }
-                print("\n")
-            }
+            println((yMax downTo yMin).joinToString("\n") { y ->
+                (xMin..xMax).joinToString(" ") { x -> if (Point(x, y) in this) "#" else " " }
+            })
         }
     }
 }
