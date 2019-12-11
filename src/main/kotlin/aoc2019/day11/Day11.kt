@@ -151,10 +151,14 @@ fun main() {
         robot.paint()
 
         with(robot.whitePanels) {
-            val xMin = map { it.x }.min()!!
-            val xMax = map { it.x }.max()!!
-            val yMin = map { it.y }.min()!!
-            val yMax = map { it.y }.max()!!
+            val xCoordinates = map { it.x }
+            val yCoordinates = map { it.y }
+
+            val xMin = xCoordinates.min()!!
+            val xMax = xCoordinates.max()!!
+
+            val yMin = yCoordinates.min()!!
+            val yMax = yCoordinates.max()!!
 
             println("Part 2:")
             for (y in yMax downTo yMin) {
