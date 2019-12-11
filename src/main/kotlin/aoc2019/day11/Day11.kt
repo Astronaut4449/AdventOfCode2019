@@ -1,5 +1,7 @@
 package aoc2019.day11
 
+import aoc2019.day11.Color.BLACK
+import aoc2019.day11.Color.WHITE
 import aoc2019.day11.Direction.*
 import java.io.File
 import java.util.*
@@ -80,6 +82,7 @@ private enum class Direction {
         RIGHT -> UP
         UP -> LEFT
     }
+
     fun rightTurn() = when (this) {
         LEFT -> UP
         UP -> RIGHT
@@ -101,7 +104,7 @@ private class PaintRobot(val whitePanels: MutableSet<Point>) {
 
         val outputQueue = LinkedList<Long>()
         intProcessor.input = sequence {
-            yield(if (Point(0, 0) in whitePanels) 1L else 0L)
+            yield(if (Point(0, 0) in whitePanels) WHITE.ordinal.toLong() else BLACK.ordinal.toLong())
             while (outputQueue.isNotEmpty()) {
                 yield(outputQueue.removeFirst())
             }
@@ -117,11 +120,11 @@ private class PaintRobot(val whitePanels: MutableSet<Point>) {
 
             // paint
             when (paint) {
-                Color.WHITE -> {
+                WHITE -> {
                     whitePanels.add(currPosition)
                     panelsEverPaintedWhite.add(currPosition)
                 }
-                Color.BLACK -> whitePanels.remove(currPosition)
+                BLACK -> whitePanels.remove(currPosition)
             }
 
             // move
@@ -129,7 +132,7 @@ private class PaintRobot(val whitePanels: MutableSet<Point>) {
             currPosition += currDirection
 
             // identify next panel
-            outputQueue.add(if (currPosition in whitePanels) 1L else 0L)
+            outputQueue.add(if (currPosition in whitePanels) WHITE.ordinal.toLong() else BLACK.ordinal.toLong())
         }
     }
 }
@@ -144,10 +147,10 @@ fun main() {
     }
 
     run {
-        val robot = PaintRobot(whitePanels = mutableSetOf(Point(0,0)))
+        val robot = PaintRobot(whitePanels = mutableSetOf(Point(0, 0)))
         robot.paint()
 
-        with (robot.whitePanels) {
+        with(robot.whitePanels) {
             val xMin = map { it.x }.min()!!
             val xMax = map { it.x }.max()!!
             val yMin = map { it.y }.min()!!
