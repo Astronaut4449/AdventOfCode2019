@@ -103,6 +103,7 @@ private class PaintRobot(val whitePanels: MutableSet<Point>) {
         val intProcessor = IntProcessor(intCode)
 
         val outputQueue = LinkedList<Long>()
+
         intProcessor.input = sequence {
             yield(if (Point(0, 0) in whitePanels) WHITE.ordinal.toLong() else BLACK.ordinal.toLong())
             while (outputQueue.isNotEmpty()) {
@@ -110,9 +111,11 @@ private class PaintRobot(val whitePanels: MutableSet<Point>) {
             }
         }
 
+        val output = intProcessor.run().iterator()
+
         var currDirection = UP
         var currPosition = Point(0, 0)
-        val output = intProcessor.run().iterator()
+
         while (output.hasNext()) {
             // read input
             val paint = Color.values()[output.next().toInt()]
@@ -142,6 +145,7 @@ val intCode = File("input/day11.txt").readText().split(',').map(String::toLong)
 fun main() {
     run {
         val robot = PaintRobot(whitePanels = mutableSetOf())
+
         robot.paint()
         println("Part 1: ${robot.panelsEverPaintedWhite.size}")
     }
