@@ -32,7 +32,7 @@ fun main() {
                 val normalizedDirectionVector = (baseAsteroid vectorTo targetAsteroid).normalize()
 
                 val scalingFactor = ((targetAsteroid.x - baseAsteroid.x) / normalizedDirectionVector.x).let {
-                    if (it.isInfinite()) (targetAsteroid.y - baseAsteroid.y) / normalizedDirectionVector.y else it
+                    if (it.isNaN()) (targetAsteroid.y - baseAsteroid.y) / normalizedDirectionVector.y else it
                 }
 
                 if (scalingFactor > 0.0) {
