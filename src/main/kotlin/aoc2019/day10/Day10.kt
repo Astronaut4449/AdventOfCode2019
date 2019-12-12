@@ -11,7 +11,7 @@ private data class Point(val x: Int, val y: Int) {
 private data class Vector(val x: Double, val y: Double) {
     val length = sqrt(x * x + y * y)
 
-    fun abs() = Vector((x / length).toFloat().toDouble(), (y / length).toFloat().toDouble())
+    fun normalize() = Vector((x / length).toFloat().toDouble(), (y / length).toFloat().toDouble())
     operator fun unaryMinus() = Vector(-x, -y)
 }
 
@@ -29,7 +29,7 @@ fun main() {
     for (baseAsteroid in asteroids) {
         for (targetAsteroid in asteroids) {
             if (baseAsteroid != targetAsteroid) {
-                val normalizedDirectionVector = (baseAsteroid vectorTo targetAsteroid).abs()
+                val normalizedDirectionVector = (baseAsteroid vectorTo targetAsteroid).normalize()
 
                 val scalingFactor = ((targetAsteroid.x - baseAsteroid.x) / normalizedDirectionVector.x).let {
                     if (it.isInfinite()) (targetAsteroid.y - baseAsteroid.y) / normalizedDirectionVector.y else it
