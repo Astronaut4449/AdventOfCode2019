@@ -78,9 +78,8 @@ fun main() {
             val firstAsteroidConnectionInSight = asteroidConnectionsInLine.minBy { it.scaleFactor }
 
             if (firstAsteroidConnectionInSight != null) {
-                assert(asteroidConnectionsInLine.remove(firstAsteroidConnectionInSight))
+                asteroidConnectionsInLine.remove(firstAsteroidConnectionInSight)
                 destroyedAsteroidCount++
-                println("$destroyedAsteroidCount: Destroying ${firstAsteroidConnectionInSight.destination}")
 
                 if (destroyedAsteroidCount == 200) {
                     firstAsteroidConnectionInSight.destination.run { println("Part 2: ${x * 100 + y}") }
