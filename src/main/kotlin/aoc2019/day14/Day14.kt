@@ -29,9 +29,9 @@ fun main() {
     }
 }
 
-class Amount(val resource: String, val amount: Long)
+private class Amount(val resource: String, val amount: Long)
 
-class Recipe(val output: Amount, val inputs: List<Amount>)
+private class Recipe(val output: Amount, val inputs: List<Amount>)
 
 private val recipes: Map<String, Recipe> = File("input/day14.txt").readLines().map { line ->
     val (ingredients, output) = line.split(" => ")
